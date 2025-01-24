@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}
+    Home
+{% endblock %}
+{% block style %}
+    <style>
+        .card {
+            width: 25rem;
+            height: 15em;
+            overflow: auto;
+        }
+        .card-text {
+            text-align: justify;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">Choose a category</h1>
+    <div class="d-flex flex-wrap justify-content-evenly gap-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center">
+                    <i class="h2 bi bi-patch-plus"></i>
+                </div>
+                <p class="card-title h3 text-center">Add category</p>
+                <p class="card-text">Create a new category to organize discussions and engage users around specific topics.</p>
+                <div class="text-center">
+                    <a href="/categories/add" class="btn btn-secondary">Add</a>
+                </div>
+            </div>
+        </div>
+        {% for category in categories %}
+            <div class="card" style="border-color: {{category.color}};">
+                <div class="card-body">
+                    <div class="text-center">
+                        <i class="h2 bi bi-{{category.icon}}"></i>
+                    </div>
+                    <p class="card-title h3 text-center">{{category.name}}</p>
+                    <p class="card-text" style="text-align: justify;">{{category.description}}</p>
+                    <div class="text-center">
+                        <a href="/categories/{{category.id}}" class="btn" style="border-color: {{category.color}};">Discover {{category.post_count}} posts</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}
+    {{post.author}}'s post on {{post.category}}
+{% endblock %}
+{% block style %}
+<style>
+    .card {
+        border-color: {{post.category.color}}
+        height: 10em;
+        overflow: auto;
+    }
+    .card-text {
+        text-align: justify;
+    }
+    .card .btn {
+        border-color: {{post.category.color}}
+    }
+    .card:is(.post) {
+        height: auto;
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center"><a href="/users/{{post.author.username}}" class="text-secondary">{{post.author}}</a>'s post on <i class="bi bi-{{post.category.icon}}"></i> {{post.category.name}}</h1>
+    <h5 class="text-center">Created at {{post.created}}</h5>
+    <div class="card post">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title"><a href="/users/{{post.author.username}}" class="text-secondary">{{post.author}}</a></h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{post.created}}</h6>
+                <p class="card-text">{{post.content}}</p>
+                <form method="post" action="/categories/{{post.category.id}}/posts/{{post.id}}/like/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn">
+                        <i class="bi bi-heart{% if user in post.likes.all %}-fill{% endif %}"></i> {{post.likes.count}} Likes
+                    </button>
+                    <a href="/categories/{{post.category.id}}/posts/{{post.id}}/comments/add" class="btn">Add comment</a>
+                </form>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <h5 class="text-center">{{comments|length}} comments</h5>
+                </li>
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <h5 class="card-title"><a href="/users/{{comment.author.username}}" class="text-secondary">{{comment.author}}</a>{% if comment.answered %} (reply to <a href="/users/{{comment.answered.author.username}}" class="text-secondary">{{comment.answered.author}}</a>'s <span style="color: #b8b8b8;">"{{comment.answered.content|slice:":16"}}{% if comment.answered.content|length > 16 %}...{% endif %}"</span>){% endif %}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{comment.created}}</h6>
+                        <p class="card-text">{{comment.content}}</p>
+                        <form method="post" action="/categories/{{post.category.id}}/posts/{{post.id}}/comments/{{comment.id}}/like/">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">
+                                <i class="bi bi-heart{% if user in comment.likes.all %}-fill{% endif %}"></i> {{comment.likes.count}} Likes
+                            </button>
+                            <a href="/categories/{{post.category.id}}/posts/{{post.id}}/comments/{{comment.id}}/reply" class="btn">Reply</a>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

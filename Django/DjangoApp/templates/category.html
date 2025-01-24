@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}
+    {{category.name}}
+{% endblock %}
+{% block style %}
+<style>
+    .card {
+        height: 15em;
+        overflow: auto;
+    }
+    .card-text {
+        text-align: justify;
+    }
+    .card:not(.intro) {
+        border-color: {{category.color}}
+    }
+    .card:not(.intro) .btn {
+        border-color: {{category.color}}
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <h1 class="text-center"><i class="bi bi-{{category.icon}}"></i> {{category.name}}</h1>
+    <h5 class="text-center">Created by <a href="/users/{{category.author.username}}" class="text-secondary">{{category.author}}</a> at {{category.created}}</h5>
+    <h5 class="text-center">{{posts|length}} posts</h5>
+    <div class="d-flex flex-column gap-3">
+        <div class="card intro">
+            <div class="card-body">
+                <h5 class="card-title">{{request.user.username}} ?</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{% now "" %} ?</h6>
+                <p class="card-text">Create a new post within the {{category.name}} category by sharing your thoughts, experiences, or information.</p>
+                <a href="/categories/{{category.id}}/posts/add" class="btn btn-secondary">Add post</a>
+            </div>
+        </div>
+        {% for post in posts %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="/users/{{post.author.username}}" class="text-secondary">{{post.author}}</a></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{post.created}}</h6>
+                    <p class="card-text">{{post.content}}</p>
+                    <form method="post" action="/categories/{{category.id}}/posts/{{post.id}}/like/">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="bi bi-heart{% if user in post.likes.all %}-fill{% endif %}"></i> {{post.likes.count}} Likes
+                        </button>
+                        <a href="/categories/{{category.id}}/posts/{{post.id}}" class="btn">Join discussion</a>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

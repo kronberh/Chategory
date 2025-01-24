@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    Add comment
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">Add comment to <a href="/users/{{post.author.username}}" class="text-secondary">{{post.author}}</a>'s <a href="/categories/{{post.category.id}}/posts/{{post.id}}" class="text-secondary">post on <i class="bi bi-{{post.category.icon}}"></i> {{post.category.name}}</a></h1>
+    <h5 class="text-center" style="color: #b8b8b8;">"{{post.content}}"</h5>
+    <form method="post" class="m-auto w-50">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn" style="border-color: {{post.category.color}}">Comment</button>
+        <a href="/categories/{{post.category.id}}/posts/{{post.id}}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+{% endblock %}

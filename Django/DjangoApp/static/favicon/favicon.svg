@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs" width="32" height="32"><svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+	<title>Новый проект</title>
+	<style>
+		.s0 { fill: #ffffff } 
+	</style>
+	<path id="SvgjsPath1562" fill-rule="evenodd" class="s0" d="m28 0c2.2 0 4 1.8 4 4v18c0 2.2-1.8 4-4 4h-8.7l-7.7 5.8c-0.3 0.2-0.7 0.3-1.1 0.1-0.3-0.2-0.5-0.5-0.5-0.9v-5h-6c-2.2 0-4-1.8-4-4v-18c0-2.2 1.8-4 4-4zm-23.5 16.4v4.2c0 1.1 0.9 2 2.1 2 1.1 0 2-0.9 2-2v-4.2c0-1.1-0.9-2.1-2-2.1-1.2 0-2.1 1-2.1 2.1zm8.3-8.3c-1.2 0-2.1 1-2.1 2.1v10.4c0 1.1 0.9 2 2.1 2 1.1 0 2-0.9 2-2v-10.4c0-1.1-0.9-2.1-2-2.1zm4.1 6.2v6.3c0 1.1 0.9 2 2.1 2 1.1 0 2-0.9 2-2v-6.3c0-1.1-0.9-2-2-2-1.2 0-2.1 0.9-2.1 2zm8.3-10.3c-1.2 0-2.1 0.9-2.1 2.1v14.5c0 1.1 0.9 2 2.1 2 1.1 0 2.1-0.9 2.1-2v-14.5c0-1.2-1-2.1-2.1-2.1z"></path>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: contrast(1) brightness(0.1); } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>

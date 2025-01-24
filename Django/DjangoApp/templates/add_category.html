@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}
+    Add category
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">Add category</h1>
+    <form method="post" class="m-auto w-50">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-success">Add</button>
+        <a href="/" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+{% endblock %}

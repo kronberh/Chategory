@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}
+    Add post
+{% endblock %}
+{% block content %}
+    <h1 class="text-center"><i class="bi bi-{{category.icon}}"></i> Add post</h1>
+    <form method="post" class="m-auto w-50">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn" style="border-color: {{category.color}}">Add</button>
+        <a href="/categories/{{category.id}}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}
+    Add reply
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">Add reply to <a href="/users/{{comment.author.username}}" class="text-secondary">{{comment.author}}</a>'s comment on <a href="/users/{{comment.post.author.username}}" class="text-secondary">{{comment.post.author}}</a>'s <a href="/categories/{{comment.post.category.id}}/posts/{{comment.post.id}}" class="text-secondary">post on <i class="bi bi-{{comment.post.category.icon}}"></i> {{comment.post.category.name}}</a></h1>
+    <h5 class="text-center" style="color: #b8b8b8;">"{{comment.content}}"</h5>
+    <form method="post" class="m-auto w-50">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn" style="border-color: {{comment.post.category.color}}">Comment</button>
+        <a href="/categories/{{comment.post.category.id}}/posts/{{comment.post.id}}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+{% endblock %}

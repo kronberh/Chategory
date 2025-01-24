@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}
+    {% if is_profile %}
+        You
+    {% else %}
+        {{user.username}}
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <h1 class="text-center">{{user.username}}</h1>
+    <ul class="list-group m-auto w-50">
+        <li class="list-group-item"><strong>First Name:</strong> {{ user.first_name|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Last Name:</strong> {{ user.last_name|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Email:</strong> {{ user.email|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Birthdate:</strong> {{ user.birthdate|default:"N/A" }}</li>
+    </ul>
+    {% if is_profile %}
+        <form method="post" action="{% url 'logout' %}" class=" m-auto w-50 mt-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
+            <a href="/" class="btn btn-outline-secondary">Back</a>
+        </form>
+    {% endif %}
+{% endblock %}

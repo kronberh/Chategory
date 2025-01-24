@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE htlm>
+<html lang="en" data-bs-theme="light" style="min-height: 100%;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/png" href="{% static "favicon/favicon-96x96.png" %}" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="{% static "favicon/favicon.svg" %}" />
+  <link rel="shortcut icon" href="{% static "favicon/favicon.ico" %}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static "favicon/apple-touch-icon.png" %}" />
+  <meta name="apple-mobile-web-app-title" content="Chategory" />
+  <link rel="manifest" href="{% static "favicon/site.webmanifest" %}" />
+  <title>
+    {% block title %}
+      Chategory
+    {% endblock %}
+  </title>
+  <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static "bootstrap-icons/font/bootstrap-icons.css" %}" />
+  {% block style %}{% endblock %}
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg fixed-top border-bottom border-1 bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand mb-0 h1" href="/">Chategory</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="/users/{{request.user.username}}">Profile</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/account/register">Register</a>
+              </li>
+              {% endif %}
+          </ul>
+          <input type="checkbox" class="btn-check" id="mode-switch" checked>
+          <label class="btn btn-outline-secondary" for="mode-switch">
+            <i id="mode-symbol" class="bi bi-sun-fill"></i>
+          </label>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main role="main" class="container pt-5 pb-5 mt-3 mb-4">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer fixed-bottom border-top bg-light">
+    <div class="container p-3">
+      &copy; 2024 - Kronberh Yelyzaveta
+    </div>
+  </footer>
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+  <script>
+    function changeTheme(theme) {
+      isLightTheme = theme == "light"
+      const html = document.querySelector("html");
+      const navbar = document.querySelector("nav");
+      const footer = document.querySelector("footer");
+      const modeSymbol = document.getElementById("mode-symbol");
+      html.setAttribute("data-bs-theme", isLightTheme ? "light" : "dark");
+      modeSymbol.className = isLightTheme ? "bi bi-sun-fill" : "bi bi-moon-fill";
+      navbar.classList.toggle("bg-dark", !isLightTheme);
+      navbar.classList.toggle("bg-light", isLightTheme);
+      footer.classList.toggle("bg-dark", !isLightTheme);
+      footer.classList.toggle("bg-light", isLightTheme);
+    }
+    document.addEventListener("DOMContentLoaded", (event) => {
+      if (!sessionStorage.getItem("theme")) {
+        sessionStorage.setItem("theme", "light");
+      } else {
+        changeTheme(sessionStorage.getItem("theme"))
+        document.getElementById("mode-switch").checked = sessionStorage.getItem("theme") == "light"
+      }
+    });
+    document.getElementById("mode-switch").addEventListener("change", (event) => {
+      theme = event.target.checked ? "light" : "dark"
+      changeTheme(theme);
+      sessionStorage.setItem("theme", theme);
+    });
+  </script>
+  {% block script %}{% endblock %}
+</body>
+</html>
